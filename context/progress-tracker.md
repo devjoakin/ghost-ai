@@ -8,11 +8,12 @@ Update this file whenever the current phase, active feature, or implementation s
 
 ## Current Goal
 
-- Install and configure shadcn/ui with dark theme support
+- Build base editor chrome components
 
 ## Completed
 
 - 01-design-system: shadcn/ui configured, 7 components installed, dark theme enforced
+- 02-editor-chrome: EditorNavbar, ProjectSidebar, and dialog pattern ready
 
 ## In Progress
 
@@ -32,4 +33,6 @@ Update this file whenever the current phase, active feature, or implementation s
 
 ## Session Notes
 
-- Add context needed to resume work in the next session.
+- Editor chrome components created: `components/editor/editor-navbar.tsx` and `components/editor/project-sidebar.tsx`
+- Dialog pattern ready: `components/ui/dialog.tsx` updated to use `rounded-3xl` per ui-context modal conventions
+- Both components are client components with typed props interfaces, exported alongside their type exports
