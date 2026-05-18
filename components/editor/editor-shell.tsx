@@ -4,16 +4,35 @@ import { useState } from "react"
 import { EditorNavbar } from "@/components/editor/editor-navbar"
 import { ProjectSidebar } from "@/components/editor/project-sidebar"
 import { ProjectDialogProvider, useProjectDialogContext } from "@/components/editor/project-dialog-context"
+import { type ProjectListItem } from "@/lib/project-data"
 
-function EditorShell({ children }: { children: React.ReactNode }) {
+function EditorShell({
+  children,
+  ownedProjects,
+  sharedProjects,
+}: {
+  children: React.ReactNode
+  ownedProjects: ProjectListItem[]
+  sharedProjects: ProjectListItem[]
+}) {
   return (
     <ProjectDialogProvider>
-      <EditorShellInner>{children}</EditorShellInner>
+      <EditorShellInner ownedProjects={ownedProjects} sharedProjects={sharedProjects}>
+        {children}
+      </EditorShellInner>
     </ProjectDialogProvider>
   )
 }
 
-function EditorShellInner({ children }: { children: React.ReactNode }) {
+function EditorShellInner({
+  children,
+  ownedProjects,
+  sharedProjects,
+}: {
+  children: React.ReactNode
+  ownedProjects: ProjectListItem[]
+  sharedProjects: ProjectListItem[]
+}) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const {
     openCreateDialog,
@@ -34,6 +53,8 @@ function EditorShellInner({ children }: { children: React.ReactNode }) {
           onCreateProject={openCreateDialog}
           onRenameProject={openRenameDialog}
           onDeleteProject={openDeleteDialog}
+          ownedProjects={ownedProjects}
+          sharedProjects={sharedProjects}
         />
         <main className="h-full">{children}</main>
       </div>

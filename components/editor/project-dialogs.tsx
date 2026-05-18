@@ -10,11 +10,11 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { type UseProjectDialogsReturn } from "@/components/editor/use-project-dialogs"
+import { type UseProjectActionsReturn } from "@/hooks/use-project-actions"
 
 interface ProjectDialogsProps
   extends Omit<
-    UseProjectDialogsReturn,
+    UseProjectActionsReturn,
     | "openCreateDialog"
     | "openRenameDialog"
     | "openDeleteDialog"
@@ -27,7 +27,7 @@ function ProjectDialogs({
   activeDialog,
   selectedProject,
   projectName,
-  slugPreview,
+  roomIdPreview,
   isLoading,
   closeDialog,
   onProjectNameChange,
@@ -45,7 +45,7 @@ function ProjectDialogs({
         open={isCreateOpen}
         onClose={closeDialog}
         projectName={projectName}
-        slugPreview={slugPreview}
+        roomIdPreview={roomIdPreview}
         isLoading={isLoading}
         onProjectNameChange={onProjectNameChange}
         onSubmit={handleSubmitCreate}
@@ -74,7 +74,7 @@ function CreateProjectDialog({
   open,
   onClose,
   projectName,
-  slugPreview,
+  roomIdPreview,
   isLoading,
   onProjectNameChange,
   onSubmit,
@@ -82,7 +82,7 @@ function CreateProjectDialog({
   open: boolean
   onClose: () => void
   projectName: string
-  slugPreview: string
+  roomIdPreview: string
   isLoading: boolean
   onProjectNameChange: (name: string) => void
   onSubmit: () => void
@@ -112,9 +112,9 @@ function CreateProjectDialog({
               disabled={isLoading}
               autoFocus={open}
             />
-            {slugPreview && (
+            {roomIdPreview && (
               <p className="text-xs text-muted-foreground">
-                Slug preview: <span className="font-mono">{slugPreview}</span>
+                Room ID: <span className="font-mono">{roomIdPreview}</span>
               </p>
             )}
           </div>

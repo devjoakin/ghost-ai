@@ -2,17 +2,17 @@
 
 import * as React from "react"
 import {
-  useProjectDialogs,
-  type UseProjectDialogsReturn,
-} from "@/components/editor/use-project-dialogs"
+  useProjectActions,
+  type UseProjectActionsReturn,
+} from "@/hooks/use-project-actions"
 import { ProjectDialogs } from "@/components/editor/project-dialogs"
 
-const ProjectDialogContext = React.createContext<UseProjectDialogsReturn | null>(
+const ProjectDialogContext = React.createContext<UseProjectActionsReturn | null>(
   null
 )
 
 function ProjectDialogProvider({ children }: { children: React.ReactNode }) {
-  const dialogs = useProjectDialogs()
+  const dialogs = useProjectActions()
 
   return (
     <ProjectDialogContext.Provider value={dialogs}>
@@ -21,7 +21,7 @@ function ProjectDialogProvider({ children }: { children: React.ReactNode }) {
         activeDialog={dialogs.activeDialog}
         selectedProject={dialogs.selectedProject}
         projectName={dialogs.projectName}
-        slugPreview={dialogs.slugPreview}
+        roomIdPreview={dialogs.roomIdPreview}
         isLoading={dialogs.isLoading}
         closeDialog={dialogs.closeDialog}
         onProjectNameChange={dialogs.setProjectName}
@@ -33,7 +33,7 @@ function ProjectDialogProvider({ children }: { children: React.ReactNode }) {
   )
 }
 
-function useProjectDialogContext(): UseProjectDialogsReturn {
+function useProjectDialogContext(): UseProjectActionsReturn {
   const context = React.useContext(ProjectDialogContext)
   if (!context) {
     throw new Error(
