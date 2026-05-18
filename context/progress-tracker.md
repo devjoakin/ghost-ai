@@ -4,11 +4,11 @@ Update this file whenever the current phase, active feature, or implementation s
 
 ## Current Phase
 
-- Project Dialogs & Editor Home
+- Prisma Schema And Data Layer
 
 ## Current Goal
 
-- Implement project creation, rename, and delete dialogs with editor home screen
+- Add project data models, Prisma client singleton, and first migration
 
 ## Completed
 
@@ -16,6 +16,7 @@ Update this file whenever the current phase, active feature, or implementation s
 - 02-editor-chrome: EditorNavbar, ProjectSidebar, and dialog pattern ready
 - 03-auth: Clerk wired into app with provider, auth pages, proxy.ts route protection, and user menu
 - 04-project-dialogs: Editor home screen, create/rename/delete dialogs, sidebar project actions, mobile backdrop
+- 05-prisma: Project and ProjectCollaborator models, Prisma client singleton, first migration generated and applied
 
 ## In Progress
 
@@ -33,6 +34,9 @@ Update this file whenever the current phase, active feature, or implementation s
 
 - Dialog state managed via a dedicated hook (`useProjectDialogs`) and shared through a React context (`ProjectDialogProvider`) so both the sidebar and the editor home can trigger the same dialog instances without prop drilling.
 - Mock project data lives in `components/editor/mock-projects.ts` with an explicit `role` field to drive action visibility (owner vs collaborator).
+- Prisma schema split into multi-file setup: `prisma/schema.prisma` contains generator and datasource, `prisma/models/project.prisma` contains domain models.
+- Prisma client singleton in `lib/prisma.ts` branches by `DATABASE_URL` prefix: uses Prisma Accelerate with `@prisma/extension-accelerate` for `prisma+postgres://` URLs, otherwise uses direct `@prisma/adapter-pg` with a `pg.Pool`.
+- Client cached on `globalThis` in development to avoid hot-reload connection churn.
 
 ## Session Notes
 
@@ -48,3 +52,9 @@ Update this file whenever the current phase, active feature, or implementation s
 - Added mobile backdrop scrim (`bg-black/40`) to sidebar and wired outside click to close
 - Wired sidebar New Project button and editor home New Project button to open the same Create dialog
 - `npm run build` and `npm run lint` both pass after 04-project-dialogs implementation
+- Created `prisma/models/project.prisma` with `ProjectStatus` enum, `Project` model (ownerId, name, description, status, canvasJsonPath, timestamps, indexes), and `ProjectCollaborator` model (project relation with cascade delete, email, unique constraint, indexes)
+- Created `lib/prisma.ts` as cached singleton with adapter/Accelerate branching logic
+- Installed `@prisma/extension-accelerate` for Accelerate support
+- Ran `prisma migrate dev --name add-project-models` successfully; migration applied to PostgreSQL database
+- Ran `prisma generate` successfully; client generated to `app/generated/prisma`
+- `npm run build` and `npm run lint` both pass after 05-prisma implementation
