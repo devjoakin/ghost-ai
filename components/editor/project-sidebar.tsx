@@ -5,14 +5,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { X, Plus, Pencil, Trash2 } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { mockProjects, type MockProject } from "@/components/editor/mock-projects"
+import { type ProjectListItem } from "@/lib/project-data"
 
 interface ProjectSidebarProps {
   isOpen: boolean
   onClose: () => void
   onCreateProject: () => void
-  onRenameProject: (project: MockProject) => void
-  onDeleteProject: (project: MockProject) => void
+  onRenameProject: (project: ProjectListItem) => void
+  onDeleteProject: (project: ProjectListItem) => void
+  ownedProjects: ProjectListItem[]
+  sharedProjects: ProjectListItem[]
 }
 
 function ProjectSidebar({
@@ -21,10 +23,9 @@ function ProjectSidebar({
   onCreateProject,
   onRenameProject,
   onDeleteProject,
+  ownedProjects,
+  sharedProjects,
 }: ProjectSidebarProps) {
-  const ownedProjects = mockProjects.filter((p) => p.role === "owner")
-  const sharedProjects = mockProjects.filter((p) => p.role === "collaborator")
-
   return (
     <>
       {isOpen && (
@@ -122,10 +123,10 @@ function ProjectRow({
   onRename,
   onDelete,
 }: {
-  project: MockProject
+  project: ProjectListItem
   showActions: boolean
-  onRename?: (project: MockProject) => void
-  onDelete?: (project: MockProject) => void
+  onRename?: (project: ProjectListItem) => void
+  onDelete?: (project: ProjectListItem) => void
 }) {
   return (
     <div className="group flex items-center justify-between rounded-md px-2 py-1.5 hover:bg-muted/50">
