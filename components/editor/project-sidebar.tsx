@@ -21,12 +21,14 @@ function ProjectSidebar({ isOpen, onClose }: ProjectSidebarProps) {
           aria-hidden
         />
       )}
-      <aside
-        className={cn(
-          "fixed top-0 left-0 z-40 flex h-full w-80 flex-col border-r border-border bg-card shadow-lg transition-transform duration-200 ease-out",
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        )}
-      >
+      {isOpen && (
+        <aside
+          id="project-sidebar"
+          className={cn(
+            "fixed top-0 left-0 z-40 flex h-full w-80 flex-col border-r border-border bg-card shadow-lg transition-transform duration-200 ease-out",
+            "translate-x-0"
+          )}
+        >
         <div className="flex h-12 shrink-0 items-center justify-between border-b border-border px-4">
           <h2 className="text-sm font-medium text-foreground">Projects</h2>
           <Button
@@ -74,6 +76,7 @@ function ProjectSidebar({ isOpen, onClose }: ProjectSidebarProps) {
           </Button>
         </div>
       </aside>
+      )}
     </>
   )
 }

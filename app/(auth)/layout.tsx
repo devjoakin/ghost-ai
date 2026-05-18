@@ -1,24 +1,7 @@
-import { Brain, Users, FileText } from "lucide-react";
-
 const features = [
-  {
-    icon: Brain,
-    title: "AI Architecture Generation",
-    description:
-      "Describe your system, AI maps it to nodes and edges on a live canvas.",
-  },
-  {
-    icon: Users,
-    title: "Real-time Collaboration",
-    description:
-      "Live cursors, presence indicators, and shared node editing across your team.",
-  },
-  {
-    icon: FileText,
-    title: "Instant Spec Generation",
-    description:
-      "Export a complete Markdown technical spec directly from the canvas graph.",
-  },
+  "AI Architecture Generation — Describe your system, AI maps it to nodes and edges on a live canvas.",
+  "Real-time Collaboration — Live cursors, presence indicators, and shared node editing across your team.",
+  "Instant Spec Generation — Export a complete Markdown technical spec directly from the canvas graph.",
 ];
 
 export default function AuthLayout({
@@ -46,23 +29,13 @@ export default function AuthLayout({
             shared canvas your whole team can refine in real time.
           </p>
 
-          <div className="mt-10 space-y-6">
+          <ul className="mt-10 space-y-3">
             {features.map((feature) => (
-              <div key={feature.title} className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--accent-primary-dim)] text-[var(--accent-primary)]">
-                  <feature.icon className="h-5 w-5" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-medium text-[var(--text-primary)]">
-                    {feature.title}
-                  </h3>
-                  <p className="mt-1 text-sm text-[var(--text-muted)] leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              </div>
+              <li key={feature} className="text-sm text-[var(--text-muted)] leading-relaxed">
+                {feature}
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
 

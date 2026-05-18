@@ -18,6 +18,8 @@ function EditorNavbar({ isSidebarOpen, onSidebarToggle }: EditorNavbarProps) {
           size="icon-sm"
           onClick={onSidebarToggle}
           aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
+          aria-expanded={isSidebarOpen}
+          aria-controls="project-sidebar"
         >
           {isSidebarOpen ? (
             <PanelLeftClose className="h-5 w-5" />
